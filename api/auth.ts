@@ -7,7 +7,7 @@ try {
   fetch = require('node-fetch');
 }
 
-import { initializeAuth } from './firebase-admin';
+import { initializeAuth } from './firebase-admin.js';
 
 // SECURITY NOTE: All sensitive Firebase operations happen here on the backend
 // Private keys NEVER leave your server. Frontend cannot bypass this layer.

@@ -1,5 +1,5 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { db, auth } from './firebase-admin';
+import { db, auth } from './firebase-admin.js';
 
 // Middleware to verify Firebase token
 async function verifyToken(req: VercelRequest): Promise<string | null> {

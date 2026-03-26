@@ -1,5 +1,5 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { auth } from './firebase-admin';
+import { auth } from './firebase-admin.js';
 
 // Verify Firebase ID token
 export async function verifyAuth(req: VercelRequest, res: VercelResponse) {
