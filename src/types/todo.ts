@@ -64,6 +64,33 @@ export interface PomodoroSession {
   pauses?: { start: Date; end: Date }[]; // Track pause intervals
 }
 
+export interface Reminder {
+  id: string;
+  taskId: string;
+  title: string;
+  reminderTime: Date; // When the reminder should trigger
+  type: 'push' | 'email' | 'in-app'; // Notification type
+  recurring: 'once' | 'daily' | 'weekly' | 'custom'; // Recurrence pattern
+  minutesBefore?: number; // Minutes before due date (e.g., 15, 30, 60, 1440)
+  enabled: boolean;
+  sent: boolean; // Whether this reminder was already sent
+  created: Date;
+  updated: Date;
+}
+
+export interface Notification {
+  id: string;
+  userId: string;
+  taskId?: string;
+  title: string;
+  message: string;
+  type: 'reminder' | 'suggestion' | 'achievement' | 'alert';
+  read: boolean;
+  actionUrl?: string;
+  created: Date;
+  expiresAt?: Date;
+}
+
 export interface Notes {
   global: string; // All notes content
   categories: { [categoryId: string]: string }; // Notes per category
@@ -74,6 +101,8 @@ export interface UserData {
   tasks: Task[];
   completedTasks: CompletedTask[];
   pomodoroSessions: PomodoroSession[];
+  reminders?: Reminder[]; // Task reminders
+  notifications?: Notification[]; // User notifications
   timeBlocks: TimeBlock[]; // Weekly schedule templates
   notes?: Notes; // User notes
   settings: {
@@ -86,8 +115,11 @@ export interface UserData {
     theme?: 'clean' | 'retro'; // UI theme preference
     themeMode?: 'light' | 'dark' | 'auto'; // Color mode: manual light, manual dark, or time-based auto
     pomodoroSound?: boolean; // Play sound when pomodoro ends
+    notificationsEnabled?: boolean; // Master switch for notifications
+    remindersEnabled?: boolean; // Master switch for reminders
+    emailReminders?: boolean; // Enable email reminders
   };
-}
+};
 
 export const DEFAULT_CATEGORIES: Category[] = [
   {
