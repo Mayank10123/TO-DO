@@ -14,6 +14,8 @@ const firebaseConfig = {
 };
 
 console.log('🔥 Firebase Config:', firebaseConfig);
+console.log('🔑 API Key (first 10 chars):', import.meta.env.VITE_FIREBASE_API_KEY?.substring(0, 10));
+console.log('📦 Project ID:', import.meta.env.VITE_FIREBASE_PROJECT_ID);
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

@@ -1,8 +1,7 @@
 import { type User } from 'firebase/auth';
 
-const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://your-vercel-domain.vercel.app/api'
-  : '/api';
+// Both local dev and Vercel use /api - no hardcoded domain needed
+const API_BASE_URL = '/api';
 
 export async function fetchWithAuth(endpoint: string, user: User | null, options: RequestInit = {}) {
   if (!user) {
