@@ -49,7 +49,7 @@ try {
 }
 
 export const db = admin.firestore();
-export const authInstance = admin.auth();
+export const auth = admin.auth();
 
 // Export function for compatibility
 export const initializeAuth = () => {
