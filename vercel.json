@@ -19,12 +19,5 @@
       "destination": "/",
       "statusCode": 307
     }
-  ],
-  "env": [
-    "FIREBASE_PROJECT_ID",
-    "FIREBASE_CLIENT_EMAIL",
-    "FIREBASE_PRIVATE_KEY",
-    "VITE_FIREBASE_API_KEY",
-    "VITE_API_URL"
   ]
 }
