@@ -14,9 +14,11 @@ import {
   Sidebar,
 } from "@/components/ui/sidebar"
 import React from "react"
+import { Routes, Route } from "react-router-dom"
 import { TodoProvider, useTodo } from "@/contexts/TodoContext"
 import { DarkModeProvider, useDarkMode } from "@/contexts/DarkModeContext"
 import { TabbieProvider } from "@/contexts/TabbieContext"
+import { useAuth } from "@/contexts/AuthContext"
 import CategorySidebar from "@/components/CategorySidebar"
 import TasksPage from "@/components/TasksPage"
 import SettingsPage from "@/components/SettingsPage"
@@ -27,6 +29,10 @@ import NotesPage from "@/components/NotesPage"
 import TabbiePage from "@/components/TabbiePage"
 import SchedulePage from "@/components/SchedulePage"
 import OnboardingModal from "@/components/OnboardingModal"
+import LoginPage from "@/components/LoginPage"
+import SignupPage from "@/components/SignupPage"
+import ForgotPasswordPage from "@/components/ForgotPasswordPage"
+import ProtectedRoute from "@/components/ProtectedRoute"
 import { updateSettings } from "@/utils/storage"
 
 const ONBOARDING_STORAGE_KEY = 'tabbie_onboarding_completed';
@@ -229,7 +235,7 @@ function AppContent() {
   )
 }
 
-export default function Page() {
+function DashboardLayout() {
   return (
     <DarkModeProvider>
       <TodoProvider>
@@ -238,5 +244,39 @@ export default function Page() {
         </TabbieProvider>
       </TodoProvider>
     </DarkModeProvider>
+  )
+}
+
+export default function App() {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-slate-600 dark:text-slate-400">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <Routes>
+      {/* Auth Routes */}
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignupPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+
+      {/* Protected Routes */}
+      <Route
+        path="/*"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
   )
 }

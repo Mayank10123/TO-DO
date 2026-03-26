@@ -17,5 +17,13 @@ export default defineConfig({
   server: {
     port: 8080,
     host: true, // Allow external connections
+    proxy: {
+      // Proxy API requests to local Firebase backend (running on port 3000)
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '/api'),
+      },
+    },
   },
 })

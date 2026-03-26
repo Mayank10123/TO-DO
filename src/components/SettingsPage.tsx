@@ -3,10 +3,12 @@ import { ToggleSwitch } from '@/components/ui/toggle-switch';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
-import { Sun, Volume2, RotateCcw, Sparkles, Square, Moon, Clock } from 'lucide-react';
+import { Sun, Volume2, RotateCcw, Sparkles, Square, Moon, Clock, LogOut } from 'lucide-react';
 import { useTodo } from '@/contexts/TodoContext';
 import { updateSettings } from '@/utils/storage';
 import { useDarkMode } from '@/contexts/DarkModeContext';
+import { useAuth } from '@/contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 interface SettingsPageProps {
   onPageChange?: (page: 'dashboard' | 'tasks' | 'reminders' | 'events' | 'notifications' | 'pomodoro' | 'notes' | 'activity' | 'timetracking' | 'settings' | 'tabbie' | 'schedule') => void;
@@ -16,6 +18,8 @@ interface SettingsPageProps {
 const SettingsPage: React.FC<SettingsPageProps> = ({ theme = 'clean' }) => {
   const { userData } = useTodo();
   const { themeMode, setThemeMode } = useDarkMode();
+  const { logout } = useAuth();
+  const navigate = useNavigate();
   const [pomodoroSound, setPomodoroSound] = React.useState(
     userData.settings.pomodoroSound !== undefined ? userData.settings.pomodoroSound : true
   );
@@ -55,6 +59,16 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ theme = 'clean' }) => {
     updateSettings({ theme });
     // Reload page to apply the new theme
     window.location.reload();
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout failed:', error);
+      alert('Failed to logout. Please try again.');
+    }
   };
 
   return (
@@ -385,6 +399,56 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ theme = 'clean' }) => {
                     {shortBreakDuration} min
                   </div>
                 </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Account Section */}
+          <Card className={
+            theme === 'retro'
+              ? "bg-[#ffcccc]/30 dark:bg-[#ff6b6b]/10 border-2 border-black dark:border-white rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,0.3)] dark:shadow-[4px_4px_0_0_rgba(255,255,255,0.1)]"
+              : ""
+          }>
+            <CardHeader>
+              <CardTitle className={theme === 'retro' ? "flex items-center gap-2 font-bold text-foreground" : "flex items-center gap-2"}>
+                <LogOut className="h-5 w-5" />
+                Account
+              </CardTitle>
+              <CardDescription className={theme === 'retro' ? "text-muted-foreground font-medium" : ""}>
+                Manage your account settings
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <label className={
+                    theme === 'retro'
+                      ? "text-base font-bold text-red-600 dark:text-red-400"
+                      : "text-sm font-medium text-red-600 dark:text-red-400"
+                  }>
+                    Logout
+                  </label>
+                  <p className={
+                    theme === 'retro'
+                      ? "text-sm text-muted-foreground font-medium"
+                      : "text-sm text-muted-foreground"
+                  }>
+                    Sign out from your account
+                  </p>
+                </div>
+                <Button 
+                  variant="destructive"
+                  size={theme === 'retro' ? 'default' : 'sm'}
+                  onClick={handleLogout}
+                  className={
+                    theme === 'retro'
+                      ? "font-bold border-2 shadow-[2px_2px_0_0_rgba(0,0,0,0.3)] dark:shadow-[2px_2px_0_0_rgba(255,255,255,0.1)]"
+                      : ""
+                  }
+                >
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Logout
+                </Button>
               </div>
             </CardContent>
           </Card>

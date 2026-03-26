@@ -1,0 +1,31 @@
+{
+  "projectId": "todo-5bd9b",
+  "buildCommand": "npm run build",
+  "functions": {
+    "api/**/*.ts": {
+      "runtime": "nodejs20.x",
+      "maxDuration": 30,
+      "memory": 1024
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "/",
+      "statusCode": 307
+    }
+  ],
+  "env": [
+    "FIREBASE_PROJECT_ID",
+    "FIREBASE_CLIENT_EMAIL",
+    "FIREBASE_PRIVATE_KEY",
+    "VITE_FIREBASE_API_KEY",
+    "VITE_API_URL"
+  ]
+}
