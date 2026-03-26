@@ -1,5 +1,5 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { db } from './firebase-admin.js';
+import { db } from '../firebase-admin.js';
 
 /**
  * Cron Job: Send scheduled notifications

@@ -25,14 +25,14 @@ export default async function handler(
       const { taskId } = req.query;
 
       try {
-        let query = db.collection('users').doc(uid).collection('reminders');
+        let query: any = db.collection('users').doc(uid).collection('reminders');
         
         if (taskId) {
           query = query.where('taskId', '==', taskId);
         }
 
         const snapshot = await query.orderBy('reminderTime', 'asc').get();
-        const reminders = snapshot.docs.map(doc => ({
+        const reminders = snapshot.docs.map((doc: any) => ({
           id: doc.id,
           ...doc.data(),
           reminderTime: doc.data().reminderTime?.toDate(),
@@ -64,7 +64,7 @@ export default async function handler(
         }
 
         const task = taskDoc.data();
-        const dueDate = task.dueDate?.toDate();
+        const dueDate = task?.dueDate?.toDate();
 
         if (!dueDate) {
           return res.status(400).json({ error: 'Task must have a due date' });

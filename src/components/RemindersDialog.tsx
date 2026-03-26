@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useTodo } from '@/contexts/TodoContext';
-import { useAuthContext } from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts/AuthContext';
 import type { Reminder, Notification } from '@/types/todo';
 
 interface RemindersDialogProps {
@@ -30,7 +30,7 @@ export function RemindersDialog({
   onOpenChange,
   onRemindersUpdate,
 }: RemindersDialogProps) {
-  const { user } = useAuthContext();
+  const { user } = useAuth();
   const [reminders, setReminders] = useState<Reminder[]>([]);
   const [loading, setLoading] = useState(false);
   const [minutesBefore, setMinutesBefore] = useState<number>(60);

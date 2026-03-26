@@ -36,8 +36,7 @@ export class SuggestionsEngine {
         title: '📋 Task Seems Complex',
         message: `"${task.title.substring(0, 40)}..." might be easier if broken into smaller subtasks.`,
         priority: 'medium',
-        taskId: task.id,
-      });
+        taskId: task.id,        createdAt: new Date(),      });
     }
 
     // 2. Priority analysis - too many high priority tasks
@@ -48,8 +47,7 @@ export class SuggestionsEngine {
         type: 'prioritization',
         title: '⚠️ Too Many High Priority Tasks',
         message: `You have ${highPriorityCount} high-priority tasks. Consider re-prioritizing to focus on what truly matters.`,
-        priority: 'high',
-      });
+        priority: 'high',        createdAt: new Date(),      });
     }
 
     // 3. Past due warning
@@ -60,8 +58,7 @@ export class SuggestionsEngine {
         title: '🚨 Task is Overdue',
         message: `"${task.title}" was due ${Math.floor((Date.now() - task.dueDate.getTime()) / (1000 * 60 * 60 * 24))} days ago.`,
         priority: 'high',
-        taskId: task.id,
-      });
+        taskId: task.id,        createdAt: new Date(),      });
     }
 
     return suggestions;
@@ -102,8 +99,7 @@ export class SuggestionsEngine {
         type: 'timing',
         title: '⏰ You\'re Most Productive in the Morning',
         message: `You complete the most tasks around ${maxHour}:00 AM. Schedule important work then!`,
-        priority: 'medium',
-      });
+        priority: 'medium',        createdAt: new Date(),      });
     }
 
     // Task batching suggestion
@@ -120,8 +116,7 @@ export class SuggestionsEngine {
           type: 'batching',
           title: '🔗 Batch Similar Tasks',
           message: `You have ${tasks.length} tasks in this category. Group them together to minimize context switching.`,
-          priority: 'low',
-        });
+          priority: 'low',          createdAt: new Date(),        });
       }
     }
 
@@ -133,8 +128,7 @@ export class SuggestionsEngine {
         type: 'prioritization',
         title: '📊 You\'re Taking on Too Much',
         message: `Your completion rate is ${Math.round(completionRate * 100)}%. Try to keep it above 50% by adding fewer tasks.`,
-        priority: 'high',
-      });
+        priority: 'high',        createdAt: new Date(),      });
     }
 
     return suggestions;

@@ -9,7 +9,7 @@ import {
   Calendar,
   Mail,
   Smartphone,
-  Toggle2,
+  Power,
   Check,
   AlertCircle,
 } from 'lucide-react';
@@ -23,7 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useAuthContext } from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface NotificationConfig {
   id?: string;
@@ -40,7 +40,7 @@ interface NotificationConfig {
 }
 
 export function NotificationsManager() {
-  const { user } = useAuthContext();
+  const { user } = useAuth();
   const [notifications, setNotifications] = useState<NotificationConfig[]>([]);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -295,7 +295,7 @@ export function NotificationsManager() {
                     onClick={() => handleToggle(notif.id!, notif.enabled)}
                     className={notif.enabled ? 'text-green-600' : 'text-gray-400'}
                   >
-                    <Toggle2 className="w-4 h-4" />
+                    <Power className="w-4 h-4" />
                   </Button>
                   <Button
                     variant="ghost"
