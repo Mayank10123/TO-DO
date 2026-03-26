@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   Settings2, Clock, Monitor, CheckSquare,
   Calendar, Zap, Play, Pause, Square, Coffee, SkipForward,
-  BookOpen, Bot
+  BookOpen, Bot, Bell
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -285,6 +285,21 @@ const CategorySidebar: React.FC<CategorySidebarProps> = ({
               >
                 <BookOpen className="w-4 h-4" />
                 <span>Notes</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                onClick={() => onPageChange('notifications')}
+                isActive={currentPage === 'notifications'}
+                className={
+                  theme === 'retro' && currentPage === 'notifications'
+                    ? "h-12 px-4 !bg-[#ffcccb] dark:!bg-red-900/30 text-gray-900 dark:text-gray-100 border-2 border-black dark:border-gray-600 rounded-xl shadow-[4px_4px_0_0_rgba(0,0,0,0.2)] dark:shadow-[4px_4px_0_0_rgba(0,0,0,0.4)] font-black"
+                    : theme === 'retro' ? "h-12 px-4 border-2 border-transparent hover:bg-[#ffcccb]/60 dark:hover:bg-red-900/30 hover:text-gray-900 dark:hover:text-gray-100 hover:border-black dark:hover:border-gray-600 rounded-xl font-bold transition-all" : ""
+                }
+              >
+                <Bell className="w-4 h-4" />
+                <span>Notifications</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
 

@@ -26,6 +26,7 @@ import EventsPage from "@/components/EventsPage"
 import DashboardPage from "@/components/DashboardPage"
 import PomodoroPage from "@/components/PomodoroPage"
 import NotesPage from "@/components/NotesPage"
+import NotificationsPage from "@/components/NotificationsPage"
 import TabbiePage from "@/components/TabbiePage"
 import SchedulePage from "@/components/SchedulePage"
 import OnboardingModal from "@/components/OnboardingModal"
@@ -140,8 +141,10 @@ function AppContent() {
                           currentPage === 'schedule' ? 'Schedule' :
                             currentPage === 'events' ? 'Events' :
                               currentPage === 'pomodoro' ? 'Pomodoro Timer' :
-                                currentPage === 'settings' ? 'Settings' :
-                                  currentPage === 'tabbie' ? 'Tabbie' : 'Dashboard'}
+                                currentPage === 'notes' ? 'Notes' :
+                                  currentPage === 'notifications' ? 'Notifications' :
+                                    currentPage === 'settings' ? 'Settings' :
+                                      currentPage === 'tabbie' ? 'Tabbie' : 'Dashboard'}
                     </BreadcrumbPage>
                   </BreadcrumbItem>
                 </BreadcrumbList>
@@ -176,6 +179,9 @@ function AppContent() {
               <PomodoroPage onPageChange={setCurrentPage} theme={theme} />
             ) : currentPage === 'notes' ? (
               <NotesPage onPageChange={setCurrentPage} theme={theme} />
+
+            ) : currentPage === 'notifications' ? (
+              <NotificationsPage theme={theme} />
 
             ) : currentPage === 'settings' ? (
               <SettingsPage onPageChange={setCurrentPage} theme={theme} />
