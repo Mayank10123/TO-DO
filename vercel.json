@@ -1,5 +1,4 @@
 {
-  "projectId": "todo-5bd9b",
   "buildCommand": "npm run build",
   "functions": {
     "api/**/*.ts": {
