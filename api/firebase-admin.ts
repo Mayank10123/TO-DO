@@ -37,11 +37,15 @@ try {
   }
 } catch (error: any) {
   console.error('❌ Firebase Admin initialization error:', error.message);
-  console.error('Error details:', error);
+  console.error('Error code:', error.code);
+  console.error('Full error:', JSON.stringify(error, null, 2));
   console.error('Service Account Check:');
-  console.error('  - projectId:', projectId ? 'set' : 'missing');
-  console.error('  - clientEmail:', clientEmail ? 'set' : 'missing');
-  console.error('  - privateKey:', privateKey ? 'set' : 'missing');
+  console.error('  - projectId:', projectId ? '✅' : '❌');
+  console.error('  - clientEmail:', clientEmail ? '✅' : '❌');
+  console.error('  - privateKey length:', privateKey?.length || 'missing');
+  console.error('  - privateKey starts correctly:', privateKey?.startsWith('-----BEGIN') ? '✅' : '❌');
+  console.error('  - privateKey has newlines:', privateKey?.includes('\n') ? '✅' : '❌');
+  throw error;
 }
 
 export const db = admin.firestore();
